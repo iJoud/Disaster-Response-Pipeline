@@ -1,24 +1,93 @@
 import sys
-
+import nltk
+nltk.download(['punkt', 'wordnet', 'omw-1.4'])
+from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
+import re
+import pandas as pd
+from sqlalchemy import create_engine
+from sklearn.pipeline import Pipeline
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+from sklearn.multioutput import MultiOutputClassifier
+from sklearn.ensemble import RandomForestClassifier # ======================
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.metrics import classification_report
+from joblib import dump #, load
+import warnings
+warnings.filterwarnings('always')
 
 def load_data(database_filepath):
-    pass
+
+    engine = create_engine(f'sqlite:///{database_filepath}')
+    conn = engine.connect()
+
+    df = pd.read_sql('Select * from categorizedMessages', con=conn)
+    X = df['message'].values
+    Y = df.iloc[:, 4:].values
+    category_names = df.iloc[:, 4:].columns
+
+    return X, Y, category_names
 
 
 def tokenize(text):
-    pass
+    # find urls in the text
+    url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+    detected_urls = re.findall(url_regex, text)
+    
+    # replace all urls with a special token
+    for url in detected_urls:
+        text = text.replace(url, "urlplaceholder")
+    
+    # tokenize text
+    tokens = word_tokenize(text)
+    lemmatizer = WordNetLemmatizer()
+
+    # case normalize, and lemmatize each token
+    clean_tokens = []
+    for token in tokens:
+        if token.isalpha():
+            token = lemmatizer.lemmatize(token).lower().strip()
+            clean_tokens.append(token)
+
+    return clean_tokens
+
 
 
 def build_model():
-    pass
+
+    pipeline = Pipeline([
+        ('vect', CountVectorizer(tokenizer=tokenize)),
+        ('tfidf', TfidfTransformer()),
+        ('multilabel_clf', MultiOutputClassifier(RandomForestClassifier()))
+    ])
+    
+    # 
+    parameters = {
+        'tfidf__norm':['l1', 'l2'],
+        'multilabel_clf__estimator__criterion': ['gini', 'entropy'],
+        'multilabel_clf__estimator__n_estimators': [150, 200],
+        'multilabel_clf__estimator__max_depth' : [4, 6]
+    }
+
+    #
+    model = GridSearchCV(estimator=pipeline, param_grid=parameters)
+    
+    return model
+
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
-    pass
+    Y_pred = model.predict(X_test)
+    for i in range(len(category_names)):
+        category = category_names[i]
+        print('Category Name: ', category)
+        print(classification_report(Y_test[:, i], Y_pred[:, i]))
+
 
 
 def save_model(model, model_filepath):
-    pass
+
+    dump(model, model_filepath) 
 
 
 def main():
