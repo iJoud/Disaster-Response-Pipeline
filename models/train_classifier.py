@@ -22,8 +22,8 @@ def load_data(database_filepath):
     conn = engine.connect()
 
     df = pd.read_sql('Select * from categorizedMessages', con=conn)
-    X = df['message'].values
-    Y = df.iloc[:, 4:].values
+    X = df['message'].values[:1000]
+    Y = df.iloc[:, 4:].values[:1000]
     category_names = df.iloc[:, 4:].columns
 
     return X, Y, category_names
@@ -45,9 +45,8 @@ def tokenize(text):
     # case normalize, and lemmatize each token
     clean_tokens = []
     for token in tokens:
-        if token.isalpha():
-            token = lemmatizer.lemmatize(token).lower().strip()
-            clean_tokens.append(token)
+        token = lemmatizer.lemmatize(token).lower().strip()
+        clean_tokens.append(token)
 
     return clean_tokens
 
