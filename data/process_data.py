@@ -45,12 +45,14 @@ def clean_data(df):
         
         # convert column from string to numeric
         categories[column] = categories[column].astype(int)
-        # ensure all data are binary
-        categories[column]=categories[column].apply(lambda x: 1 if x>0 else 0)
 
 
     df.drop(['categories'], axis=1, inplace=True)
     df = pd.concat([df, categories], sort=False, axis=1)
+    
+    # ensure all data are binary
+    for col in df.iloc[:,4:].columns:
+        df.drop(df[(df[col]> 1) | (df[col]< 0)].index, inplace=True)    
 
     # drop duplicated data, if exist!
     df.drop_duplicates(inplace=True)
