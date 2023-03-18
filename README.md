@@ -22,10 +22,6 @@ In this project, I've build a web app shows brief Informations about training da
     ├── train_classifier.py         # machine learning ETL script for the model
     └── classifier.pkl              # trained model saved
    
-    - results                       # Folder contains images for working web app.
-    ├── index page.png              # homepage (index) screenshot
-    └── classification results.png  # classification page results screenshot
-
     - LICENSE
     - README.md
     
