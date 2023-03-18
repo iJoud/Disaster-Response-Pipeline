@@ -9,7 +9,7 @@ In this project, I've build a web app shows brief Informations about training da
 - results - images for working web app.
 
 ## Prerequisites & Running
-You need to create an Anaconda environment with python 3.8 and the following libraries:
+You need to create an Anaconda environment with python 3.8+ and the following libraries:
 - sklearn
 - json
 - plotly
