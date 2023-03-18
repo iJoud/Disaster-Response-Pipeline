@@ -1,12 +1,37 @@
 # Disaster Response Pipeline Project
 ## Summary
-In this project, I've build a web app shows brief Informations about training data and deploy multi-label classification model to classify disaster messages. The repo contains the ETL pipelines for preparing data, and training machine learning model.
+In this project, I've build a web app shows brief Informations about training data and deploy multi-label classification model to classify disaster messages. The repo contains the ETL pipelines for preparing data, and training machine learning model. It will help for fast disaster emergency response by categorize the income messages to appropriate categories.
 
 ## Files
-- data - Folder contains unprocessed data files and ETL pipeline scipt.
-- models - Folder contains machine learning pipeline.
-- app - Folder contains the html templates and flask python file to run the web app.
-- results - images for working web app.
+
+```bash
+    
+    - app                           # Folder contains the html templates and flask python file to run the web app.
+    ├── template                    
+    │   ├── master.html             # main page of web app              
+    │   └── go.html                 # classification result page of web app
+    └── run.py                      # Flask file that runs web app
+    
+    - data                          # Folder contains unprocessed data files and ETL pipeline scipt.
+    ├── disaster_categories.csv     # categories data to process 
+    ├── disaster_messages.csv       # messages data to process
+    ├── DisasterResponse.db         # created database file with cleaned dataset
+    └── process_data.py             # ETL pipeline script for processing the data
+
+    - models                        # Folder contains machine learning pipeline and trained model file.
+    ├── train_classifier.py         # machine learning ETL script for the model
+    └── classifier.pkl              # trained model saved
+   
+    - results                       # Folder contains images for working web app.
+    ├── index page.png              # homepage (index) screenshot
+    └── classification results.png  # classification page results screenshot
+
+    - LICENSE
+    - README.md
+    
+```
+
+
 
 ## Prerequisites & Running
 You need to create an Anaconda environment with python 3.8+ and the following libraries:
