@@ -6,6 +6,7 @@ In this project, I've build a web app shows brief Informations about training da
 data - Folder contains unprocessed data files and ETL pipeline scipt.
 models - Folder contains machine learning pipeline.
 app - Folder contains the html templates and flask python file to run the web app.
+results - images for working web app.
 
 
 ## Prerequisites & Running
