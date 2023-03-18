@@ -1,15 +1,30 @@
 # Disaster Response Pipeline Project
+### Summary:
+In this project, I've build a web app shows brief Informations about training data and deploy multi-label classification model to classify disaster messages. The repo contains the ETL pipelines for preparing data, and training machine learning model.
 
-### Instructions:
-1. Run the following commands in the project's root directory to set up your database and model.
+### Files
+data - Folder contains unprocessed data files and ETL pipeline scipt.
+models - Folder contains machine learning pipeline.
+app - Folder contains the html templates and flask python file to run the web app.
 
-    - To run ETL pipeline that cleans data and stores in database
-        `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
-    - To run ML pipeline that trains classifier and saves
-        `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
 
-2. Go to `app` directory: `cd app`
+### Prerequisites & Running
+You need to create an Anaconda environment with python 3.8 and the following libraries:
+- sklearn
+- json
+- plotly
+- pandas 
+- numpy
+- nltk 
+- flask
+- joblib
+- sqlalchemy 
+- re
 
-3. Run your web app: `python run.py`
+After activating the environment, follow the following steps:
+1. Run the ETL pipeline that cleans data and stores in database.
+2. Run machine learning pipeline that trains classifier and saves it.
+3. Finally, run web app and open localhost:3000 on your browser to open the web app. 
 
-4. Click the `PREVIEW` button to open the homepage
+
+
