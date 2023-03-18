@@ -3,14 +3,10 @@
 In this project, I've build a web app shows brief Informations about training data and deploy multi-label classification model to classify disaster messages. The repo contains the ETL pipelines for preparing data, and training machine learning model.
 
 ## Files
-data - Folder contains unprocessed data files and ETL pipeline scipt.
-
-models - Folder contains machine learning pipeline.
-
-app - Folder contains the html templates and flask python file to run the web app.
-
-results - images for working web app.
-
+- data - Folder contains unprocessed data files and ETL pipeline scipt.
+- models - Folder contains machine learning pipeline.
+- app - Folder contains the html templates and flask python file to run the web app.
+- results - images for working web app.
 
 ## Prerequisites & Running
 You need to create an Anaconda environment with python 3.8 and the following libraries:
